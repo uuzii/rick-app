@@ -1,0 +1,61 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="rick-detail">
+    <template>
+        <style>
+        
+        </style>
+        <section id="details" class="contact__details--container">
+            <h1 class="title__principal">
+                Detalles del personaje
+            </h1>
+            <article class="profile__contact">
+                <div class="user--image">
+                    <img class="img-circle" src="[[picture]]">
+                </div>
+                <div class="profile--content">
+                        <h3 class="name">[[name]]</h3>
+                        <div class="">
+                            <p><b>Status:</b></p>
+                            <p id="status">[[status]]</p>
+                        </div>
+                        <div class="">
+                            <p><b>Specie:</b></p>
+                            <p id="specie" >[[specie]]</p>
+                        </div>
+                </div>
+            </article>
+        </section>
+    </template>
+    <script>
+        (function rickDetail(customElements) {
+            class RickDetail extends Polymer.Element{
+                static get is (){return 'rick-details';}
+                //* Object describing property-related for the Contact users features
+                static get properties() {
+                    return {
+                        name:{
+                        type: String,
+                        value:'Santley Marsh'
+                        },
+                        phone:{
+                            type: String,
+                            value:'**********'
+                        },
+                        address:{
+                            type: String,
+                            value:'2001 E. Bonanza St. River Cow: 260'
+                        },
+                        picture:{
+                            type: String,
+                            value:'../img/rickymorty.png'
+                        },
+                    }
+                }
+            }
+            customElements.define(RickDetail.is, RickDetail)
+        })(window.customElements);
+    </script>
+    
+
+</dom-module>
