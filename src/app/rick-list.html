@@ -1,0 +1,86 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<link rel="import" href="rick-character-card.html">
+
+<dom-module id="rick-list">
+    <template>
+        <style>
+            .container__div {
+                max-width: 900px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            h1 {
+                text-transform: capitalize;
+                text-align: center;
+            }
+        </style>
+
+        <iron-ajax auto url="[[generatedUrl]]" handle-as="json" on-response="handleResponse" last-response="{{charactersList}}" on-error="handleError">
+        </iron-ajax>
+
+        <div id="main__container">
+            <h1>[[status]] items</h1>
+
+            <div class="container__div">
+                <dom-repeat items="[[charactersList.results]]">
+                    <template>
+                        <rick-character-card data="[[item]]"></rick-character-card>
+                    </template>
+                </dom-repeat>
+            </div>
+        </div>
+
+    </template>
+</dom-module>
+
+<script>
+    (function rickList(customElements) {
+        'use strict';
+
+        class RickList extends Polymer.Element {
+            static get is() { return 'rick-list' }
+
+            static get properties() {
+                return {
+                    baseUrl: {
+                        type: String,
+                        value: 'https://rickandmortyapi.com/api/character/'
+                    },
+
+                    status: {
+                        type: String,
+                        value: 'alive'
+                    },
+
+                    generatedUrl: {
+                        type: String,
+                        computed: 'generateUrl(baseUrl, status)'
+                    }
+                };
+            }
+
+            handleResponse() {
+                console.log(this.charactersList);
+            }
+
+            generateUrl(baseUrl, status) {
+                if (status == 'alive' || status == 'dead' || status == 'unknow') {
+                    return `${baseUrl}?name=rick&status=${status}`
+                } else if (status == 'all') {
+                    return baseUrl
+                } else return 'error'
+            }
+
+            handleError() {
+                this.$.main__container.innerHTML = 'No hay resultados';
+            }
+        }
+
+        customElements.define(RickList.is, RickList)
+
+    })(window.customElements);
+</script>
