@@ -1,0 +1,57 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="rick-character-card">
+    <template>
+        <style>
+            .character__card {
+                display: grid;
+                grid-template-columns: 120px 1fr;
+            }
+
+            .thumbnail__img {
+                width: 100%;
+            }
+
+            .data__div {
+                padding-left: 1em;
+            }
+        </style>
+
+        <div class="character__card">
+            <div>
+                <img src="[[data.image]]" class="thumbnail__img" alt="">
+            </div>
+
+            <div class="data__div">
+                <h3>[[data.name]]</h3>
+                <p>[[data.species]]</p>
+                <p>[[data.status]]</p>
+            </div>
+        </div>
+
+    </template>
+</dom-module>
+
+<script>
+    (function rickCharacter(customElements) {
+        'use strict';
+        
+        class RickCharacterCard extends Polymer.Element {
+            static get is() { return 'rick-character-card' }
+
+            static get properties() {
+                return {
+                    data: Object
+                };
+            }
+
+            ready() {
+                super.ready();
+                console.log(this.data);
+            }
+        }
+
+        customElements.define(RickCharacterCard.is, RickCharacterCard)
+
+    })(window.customElements);
+</script>
