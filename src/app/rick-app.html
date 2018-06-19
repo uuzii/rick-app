@@ -1,0 +1,126 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
+<dom-module id="rick-app">
+	<template>
+
+		<style>
+
+			app-header {
+		      background-color: #7C75BF;
+		      color: #fff;
+		    }
+		    app-drawer {
+		      --app-drawer-content-container: {
+		         background-color: #fafafa;
+		       }
+		    }
+		    paper-icon-button {
+		      --paper-icon-button-ink-color: white;
+		    }
+		    app-drawer-layout:not([narrow]) [drawer-toggle] {
+		      display: none;
+			}
+			.nav__bar {
+				display: flex;
+				flex-direction: column;
+			}
+			.link__nav {
+				text-decoration: none;
+				color: #000;
+				padding: 20px;
+			}
+
+			.link__nav:hover {
+				background-color: #E87370;
+				color: #eee;
+				transition: .6s;
+				border-radius: 40px;
+			}
+
+		</style>
+
+		<app-location route="{{route}}"></app-location>
+		<app-route
+			route={{route}}
+			pattern="/:page"
+			data={{data}}>
+		</app-route>
+
+		<app-drawer-layout>
+			<app-header-layout>
+				<app-header slot="header" reveals effects="wtaerfail">
+					<app-toolbar>
+						<paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+						<div class="title" main-title>Rick App</div>
+					</app-toolbar>
+				</app-header>
+			</app-header-layout>
+
+			<app-drawer slot="drawer">
+				<app-toolbar>Main</app-toolbar>
+				<!-- MENU CON RUTAS INCLUIDAS -->
+				<div class="nav__bar">
+					<a class="link__nav" href="">All</a>
+					<a class="link__nav" href="">Alive</a>
+					<a class="link__nav" href="">Dead</a>
+					<a class="link__nav" href="">Unknown</a>
+				</div>
+			</app-drawer>
+	    </app-drawer-layout>
+
+	    <iron-pages selected="[[data.page]]" attr-for-selected="view" fallback-selection="default">
+            <section view="home">home</section>
+        </iron-pages>
+
+	</template>
+
+	<script>
+
+		(function rickApp(customElements) {
+
+			'use strict';
+
+			class RickApp extends Polymer.Element {
+				static get is() { return 'rick-app'; }
+				static get properties() {
+					return {
+						// observers: [
+						// 	'_routeChanged(route.*)'
+						// ]
+					};
+				}
+
+				ready() {
+	                super.ready();
+	                console.log(this.route);
+	                console.log(this.data);
+	            }
+
+	            // _routeChanged(changeRecord) {
+	            // 	if (changeRecord.path === 'path') {
+	            // 		console.log('Path changed!!');
+	            // 	}
+	            // }
+
+			}
+
+			customElements.define(RickApp.is, RickApp);
+
+		})(window.customElements)
+
+	</script>
+
+</dom-module>
