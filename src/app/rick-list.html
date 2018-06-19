@@ -81,7 +81,12 @@
             }
 
             showChild(event) {
-                console.log(event.target.data);
+                this.dispatchEvent(new CustomEvent('element-clicked', {
+                    bubbles: true, 
+                    detail: {
+                        data: event.target.data
+                    }
+                }));
             }
         }
 
