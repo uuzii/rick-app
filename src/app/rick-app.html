@@ -97,23 +97,14 @@
 				static get is() { return 'rick-app'; }
 				static get properties() {
 					return {
-						// observers: [
-						// 	'_routeChanged(route.*)'
-						// ]
-					};
+											};
 				}
 
 				ready() {
 	                super.ready();
 	                console.log(this.route);
 	                console.log(this.data);
-	            }
-
-	            // _routeChanged(changeRecord) {
-	            // 	if (changeRecord.path === 'path') {
-	            // 		console.log('Path changed!!');
-	            // 	}
-	            // }
+	            }	
 
 			}
 
