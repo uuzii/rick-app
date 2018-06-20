@@ -1,58 +1,87 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="rick-detail">
     <template>
         <style>
-        
+        .details__info{
+            display: grid;
+            width: 100%;
+            grid-template-columns: auto auto auto;
+            color: white;
+            text-align: center;
+            }
+            .details--name{
+            background: #327598;
+            }
+            .details--status{
+            background: #397a87;
+            }
+            .details--specie{
+            background: #498366;
+            }
+            .details__photo-card{
+            display: grid;
+            width: 100%;
+            grid-template-columns: 1fr 3fr;
+            color: white;
+            text-align: center;
+            }
+            .user--image{
+            background: #303467;
+            }
+            .profile--content{
+            background: #11103D;
+            }
         </style>
+        <iron-ajax
+        auto
+        url="https://rickandmortyapi.com/api/character/2"
+        handle-as="json"
+        on-response="handleResponse"
+        last-response="{{data}}" >
+        </iron-ajax>
         <section id="details" class="contact__details--container">
-            <h1 class="title__principal">
-                Detalles del personaje
-            </h1>
-            <article class="profile__contact">
-                <div class="user--image">
-                    <img class="img-circle" src="[[picture]]">
+                <div class="details__info">
+                    <div class="details--name">
+                        <h3 class="name">[[data.name]]</h3> 
+                    </div>
+                    <div class="details--status">
+                        <p><b>Status:</b></p>
+                        <p id="status">[[data.status]]</p>
+                    </div>
+                    <div class="details--specie">
+                        <p><b>Specie:</b></p>
+                        <p id="specie" >[[data.species]]</p>
+                    </div>
                 </div>
-                <div class="profile--content">
-                        <h3 class="name">[[name]]</h3>
-                        <div class="">
-                            <p><b>Status:</b></p>
-                            <p id="status">[[status]]</p>
-                        </div>
-                        <div class="">
-                            <p><b>Specie:</b></p>
-                            <p id="specie" >[[specie]]</p>
-                        </div>
+                <div class="details__photo-card">
+                    <div class="user--image">
+                        <img class="img-circle" src="[[data.image]]">
+                    </div>
+                    <div class="profile--content">
+                    <p class="phrase"> Frase que dice que tiene</p> 
+                    </div>
                 </div>
+                <h1 class="title__principal">Detalles del personaje</h1>
             </article>
         </section>
     </template>
     <script>
         (function rickDetail(customElements) {
             class RickDetail extends Polymer.Element{
-                static get is (){return 'rick-details';}
+                static get is (){return 'rick-detail';}
                 //* Object describing property-related for the Contact users features
                 static get properties() {
                     return {
-                        name:{
-                        type: String,
-                        value:'Santley Marsh'
-                        },
-                        phone:{
-                            type: String,
-                            value:'**********'
-                        },
-                        address:{
-                            type: String,
-                            value:'2001 E. Bonanza St. River Cow: 260'
-                        },
-                        picture:{
-                            type: String,
-                            value:'../img/rickymorty.png'
-                        },
                     }
                 }
+
+                handleResponse(){
+                    console.log(this.data);
+                }
             }
+
             customElements.define(RickDetail.is, RickDetail)
         })(window.customElements);
     </script>
