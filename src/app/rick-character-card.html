@@ -17,7 +17,7 @@
             }
         </style>
 
-        <div class="character__card">
+        <div class="character__card" on-tap="sendCharacterData">
             <div>
                 <img src="[[data.image]]" class="thumbnail__img" alt="">
             </div>
@@ -43,11 +43,6 @@
                 return {
                     data: Object
                 };
-            }
-
-            ready() {
-                super.ready();
-                console.log(this.data);
             }
         }
 

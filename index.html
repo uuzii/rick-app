@@ -6,11 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rick & Morty</title>
     <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-    <!--  <link rel="import" href="src/app/rick-app.html"> -->
-    <link rel="import" href="src/app/rick-detail.html">
+    <link rel="import" href="src/app/rick-app.html">
+
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
 </head>
+
 <body>
-    <!-- <rick-list status="dead"></rick-list> -->
-    <rick-detail></rick-detail>
+    <rick-app status="alive"></rick-app>
 </body>
 </html>

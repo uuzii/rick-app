@@ -61,6 +61,10 @@
                     </div>
                     <div class="profile--content">
                     <p class="phrase"> Frase que dice que tiene</p> 
+
+
+        <app-route route="[[route]]" pattern="/:id" data="{{routeData}}">
+        </app-route>
                     </div>
                 </div>
                 <h1 class="title__principal">Detalles del personaje</h1>
@@ -85,6 +89,6 @@
             customElements.define(RickDetail.is, RickDetail)
         })(window.customElements);
     </script>
-    
+
 
 </dom-module>

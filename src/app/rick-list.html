@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
 <link rel="import" href="rick-character-card.html">
@@ -19,6 +20,9 @@
             }
         </style>
 
+        <app-route route="[[route]]" pattern="/:status" data="{{routeData}}">
+        </app-route>
+
         <iron-ajax auto url="[[generatedUrl]]" handle-as="json" on-response="handleResponse" last-response="{{charactersList}}" on-error="handleError">
         </iron-ajax>
 
@@ -28,7 +32,9 @@
             <div class="container__div">
                 <dom-repeat items="[[charactersList.results]]">
                     <template>
-                        <rick-character-card data="[[item]]"></rick-character-card>
+                        <a href="/detail/[[item.id]]">
+                            <rick-character-card data="[[item]]"></rick-character-card>
+                        </a>
                     </template>
                 </dom-repeat>
             </div>
@@ -56,6 +62,11 @@
                         value: 'alive'
                     },
 
+                    routeData: {
+                        type: Object,
+                        observer: 'changeStatus'
+                    },
+
                     generatedUrl: {
                         type: String,
                         computed: 'generateUrl(baseUrl, status)'
@@ -64,7 +75,12 @@
             }
 
             handleResponse() {
-                console.log(this.charactersList);
+                console.info('Succesfull request');
+            }
+
+            changeStatus(newVal, oldVal) {
+                this.status = newVal.status;
+                console.log(newVal.status);
             }
 
             generateUrl(baseUrl, status) {
@@ -76,7 +92,17 @@
             }
 
             handleError() {
+                console.error('Request failed');
                 this.$.main__container.innerHTML = 'No hay resultados';
+            }
+
+            showChild(event) {
+                this.dispatchEvent(new CustomEvent('element-clicked', {
+                    bubbles: true,
+                    detail: {
+                        data: event.target.data
+                    }
+                }));
             }
         }
 
