@@ -3,8 +3,16 @@
 <dom-module id="rick-detail">
     <template>
         <style>
-        
+            :host {
+                text-align: center;
+            }
         </style>
+
+        <app-route route="[[route]]" pattern="/:id" data="{{routeData}}">
+        </app-route>
+
+        <h1>DETALLES [[routeData.id]]</h1> 
+
         <section id="details" class="contact__details--container">
             <h1 class="title__principal">
                 Detalles del personaje
@@ -14,23 +22,27 @@
                     <img class="img-circle" src="[[data.image]]">
                 </div>
                 <div class="profile--content">
-                        <h3 class="name">[[data.name]]</h3>
-                        <div class="">
-                            <p><b>Status:</b></p>
-                            <p id="status">[[data.status]]</p>
-                        </div>
-                        <div class="">
-                            <p><b>Specie:</b></p>
-                            <p id="specie" >[[data.species]]</p>
-                        </div>
+                    <h3 class="name">[[data.name]]</h3>
+                    <div class="">
+                        <p>
+                            <b>Status:</b>
+                        </p>
+                        <p id="status">[[data.status]]</p>
+                    </div>
+                    <div class="">
+                        <p>
+                            <b>Specie:</b>
+                        </p>
+                        <p id="specie">[[data.species]]</p>
+                    </div>
                 </div>
             </article>
         </section>
     </template>
     <script>
         (function rickDetail(customElements) {
-            class RickDetail extends Polymer.Element{
-                static get is (){return 'rick-details';}
+            class RickDetail extends Polymer.Element {
+                static get is() { return 'rick-detail'; }
                 //* Object describing property-related for the Contact users features
                 static get properties() {
                     return {
@@ -41,6 +53,6 @@
             customElements.define(RickDetail.is, RickDetail)
         })(window.customElements);
     </script>
-    
+
 
 </dom-module>
