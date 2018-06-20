@@ -4,84 +4,91 @@
 <dom-module id="rick-detail">
     <template>
         <style>
-        .details__info{
-            display: grid;
-            width: 100%;
-            grid-template-columns: auto auto auto;
-            color: white;
-            text-align: center;
+            .details__info {
+                display: grid;
+                width: 100%;
+                grid-template-columns: auto auto auto;
+                color: white;
+                text-align: center;
             }
-            .details--name{
-            background: #327598;
+
+            .details--name {
+                background: #327598;
             }
-            .details--status{
-            background: #397a87;
+
+            .details--status {
+                background: #397a87;
             }
-            .details--specie{
-            background: #498366;
+
+            .details--specie {
+                background: #498366;
             }
-            .details__photo-card{
-            display: grid;
-            width: 100%;
-            grid-template-columns: 1fr 3fr;
-            color: white;
-            text-align: center;
+
+            .details__photo-card {
+                display: grid;
+                width: 100%;
+                grid-template-columns: 1fr 3fr;
+                color: white;
+                text-align: center;
             }
-            .user--image{
-            background: #303467;
+
+            .user--image {
+                background: #303467;
             }
-            .profile--content{
-            background: #11103D;
+
+            .profile--content {
+                background: #11103D;
             }
         </style>
-        <iron-ajax
-        auto
-        url="https://rickandmortyapi.com/api/character/1"
-        handle-as="json"
-        on-response="handleResponse"
-        last-response="{{data}}" >
-        </iron-ajax>
-        <section id="details" class="contact__details--container">
-                <div class="details__info">
-                    <div class="details--name">
-                        <h3 class="name">[[data.name]]</h3> 
-                    </div>
-                    <div class="details--status">
-                        <p><b>Status:</b></p>
-                        <p id="status">[[data.status]]</p>
-                    </div>
-                    <div class="details--specie">
-                        <p><b>Specie:</b></p>
-                        <p id="specie" >[[data.species]]</p>
-                    </div>
-                </div>
-                <div class="details__photo-card">
-                    <div class="user--image">
-                        <img class="img-circle" src="[[data.image]]">
-                    </div>
-                    <div class="profile--content">
-                    <p class="phrase"> Frase que dice que tiene</p> 
-
 
         <app-route route="[[route]]" pattern="/:id" data="{{routeData}}">
         </app-route>
-                    </div>
+
+        <iron-ajax auto url="https://rickandmortyapi.com/api/character/[[routeData.id]]" handle-as="json" on-response="handleResponse" last-response="{{data}}">
+        </iron-ajax>
+        <section id="details" class="contact__details--container">
+            <div class="details__info">
+                <div class="details--name">
+                    <h3 class="name">[[data.name]]</h3>
                 </div>
-                <h1 class="title__principal">Detalles del personaje</h1>
+                <div class="details--status">
+                    <p>
+                        <b>Status:</b>
+                    </p>
+                    <p id="status">[[data.status]]</p>
+                </div>
+                <div class="details--specie">
+                    <p>
+                        <b>Specie:</b>
+                    </p>
+                    <p id="specie">[[data.species]]</p>
+                </div>
+            </div>
+            <div class="details__photo-card">
+                <div class="user--image">
+                    <img class="img-circle" src="[[data.image]]">
+                </div>
+                <div class="profile--content">
+                    <p class="phrase"> Frase que dice que tiene</p>
+                </div>
+            </div>
+
+            <h1 class="title__principal">Detalles del personaje</h1>
+
             </article>
         </section>
     </template>
     <script>
         (function rickDetail(customElements) {
-            class RickDetail extends Polymer.Element{
-                static get is (){return 'rick-detail';}
+            class RickDetail extends Polymer.Element {
+                static get is() { return 'rick-detail'; }
                 //* Object describing property-related for the Contact users features
                 static get properties() {
                     return {
                     }
                 }
 
-                handleResponse(){
+                handleResponse() {
                     console.log(this.data);
                 }
             }

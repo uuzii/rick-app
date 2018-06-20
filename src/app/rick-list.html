@@ -7,11 +7,12 @@
 <dom-module id="rick-list">
     <template>
         <style>
+
             .container__div {
                 max-width: 900px;
                 margin: 0 auto;
                 display: grid;
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr;
             }
 
             h1 {
@@ -25,6 +26,7 @@
 
         <iron-ajax auto url="[[generatedUrl]]" handle-as="json" on-response="handleResponse" last-response="{{charactersList}}" on-error="handleError">
         </iron-ajax>
+
 
         <div id="main__container">
             <h1>[[status]] items</h1>

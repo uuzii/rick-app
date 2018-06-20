@@ -4,29 +4,50 @@
     <template>
         <style>
             .character__card {
-                display: grid;
-                grid-template-columns: 120px 1fr;
+                padding: 1em;
             }
 
-            .thumbnail__img {
-                width: 100%;
+            .cafe-header {
+                @apply --paper-font-headline;
             }
 
-            .data__div {
-                padding-left: 1em;
+            .cafe-light {
+                color: var(--paper-grey-600);
+            }
+
+            .cafe-location {
+                float: right;
+                font-size: 15px;
+                vertical-align: middle;
+            }
+
+            .cafe-reserve {
+                color: var(--google-blue-500);
+            }
+
+            iron-icon.star {
+                --iron-icon-width: 16px;
+                --iron-icon-height: 16px;
+                color: var(--paper-amber-500);
+            }
+
+            iron-icon.star:last-of-type {
+                color: var(--paper-grey-500);
             }
         </style>
 
-        <div class="character__card" on-tap="sendCharacterData">
-            <div>
-                <img src="[[data.image]]" class="thumbnail__img" alt="">
-            </div>
-
-            <div class="data__div">
-                <h3>[[data.name]]</h3>
-                <p>[[data.species]]</p>
-                <p>[[data.status]]</p>
-            </div>
+        <div class="character__card">
+            <paper-card image="[[data.image]]">
+                <div class="card-content">
+                    <div class="cafe-header">[[data.name]]
+                        <div class="cafe-location cafe-light">
+                            <iron-icon icon="accessibility"></iron-icon>
+                            <span>[[data.status]]</span>
+                        </div>
+                    </div>
+                    <p class="cafe-light">Small plates, salads &amp; sandwiches in an intimate setting.</p>
+                </div>
+            </paper-card>
         </div>
 
     </template>
@@ -35,7 +56,7 @@
 <script>
     (function rickCharacter(customElements) {
         'use strict';
-        
+
         class RickCharacterCard extends Polymer.Element {
             static get is() { return 'rick-character-card' }
 
