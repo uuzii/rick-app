@@ -11,17 +11,17 @@
             </h1>
             <article class="profile__contact">
                 <div class="user--image">
-                    <img class="img-circle" src="[[picture]]">
+                    <img class="img-circle" src="[[data.image]]">
                 </div>
                 <div class="profile--content">
-                        <h3 class="name">[[name]]</h3>
+                        <h3 class="name">[[data.name]]</h3>
                         <div class="">
                             <p><b>Status:</b></p>
-                            <p id="status">[[status]]</p>
+                            <p id="status">[[data.status]]</p>
                         </div>
                         <div class="">
                             <p><b>Specie:</b></p>
-                            <p id="specie" >[[specie]]</p>
+                            <p id="specie" >[[data.species]]</p>
                         </div>
                 </div>
             </article>
@@ -34,22 +34,7 @@
                 //* Object describing property-related for the Contact users features
                 static get properties() {
                     return {
-                        name:{
-                        type: String,
-                        value:'Santley Marsh'
-                        },
-                        phone:{
-                            type: String,
-                            value:'**********'
-                        },
-                        address:{
-                            type: String,
-                            value:'2001 E. Bonanza St. River Cow: 260'
-                        },
-                        picture:{
-                            type: String,
-                            value:'../img/rickymorty.png'
-                        },
+                        data: Object
                     }
                 }
             }
