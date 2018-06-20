@@ -13,77 +13,85 @@
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 
+<link rel="import" href="rick-list.html">
+
 <dom-module id="rick-app">
 	<template>
 
 		<style>
-
 			app-header {
-		      background-color: #7C75BF;
-		      color: #fff;
-		    }
-		    app-drawer {
-		      --app-drawer-content-container: {
-		         background-color: #fafafa;
-		       }
-		    }
-		    paper-icon-button {
-		      --paper-icon-button-ink-color: white;
-		    }
-		    app-drawer-layout:not([narrow]) [drawer-toggle] {
-		      display: none;
-			}
-			.nav__bar {
-				display: flex;
-				flex-direction: column;
-			}
-			.link__nav {
-				text-decoration: none;
-				color: #000;
-				padding: 20px;
+				background-color: #7C75BF;
+				color: #fff;
 			}
 
-			.link__nav:hover {
-				background-color: #E87370;
+			app-drawer {
+				--app-drawer-content-container: {
+					background-color: #fafafa;
+				}
+			}
+
+			paper-icon-button {
+				--paper-icon-button-ink-color: white;
+			}
+
+			app-drawer-layout:not([narrow]) [drawer-toggle] {
+				display: none;
+			}
+
+			app-toolbar {
+		        background-color: #4285f4;
+		        color: #fff;
+		    }
+		    
+		    app-drawer {
+		        --app-drawer-content-container: {
+		          background-color: #B0BEC5;
+		        }
+		    }
+		    .drawer-contents {
+		        height: 100%;
+		        overflow-y: auto;
+		    }
+		    .nav__bar {
+		    	display: flex;
+		    	flex-direction: column;
+		    	padding: 20px;  
+		    }
+			.link__nav {
+				padding: 15px;
+				text-decoration: none;
 				color: #eee;
-				transition: .6s;
-				border-radius: 40px;
 			}
 
 		</style>
 
 		<app-location route="{{route}}"></app-location>
-		<app-route
-			route={{route}}
-			pattern="/:page"
-			data={{data}}>
+		<app-route route={{route}} pattern="/list/:page" data={{routeData}} tail="{{subroute}}">
 		</app-route>
 
-		<app-drawer-layout>
-			<app-header-layout>
-				<app-header slot="header" reveals effects="wtaerfail">
-					<app-toolbar>
-						<paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-						<div class="title" main-title>Rick App</div>
-					</app-toolbar>
-				</app-header>
-			</app-header-layout>
+		<app-toolbar>
+		    <div main-title></div>
+		    <paper-icon-button icon="menu" on-click="openDrawer"></paper-icon-button>
+		</app-toolbar>
 
-			<app-drawer slot="drawer">
-				<app-toolbar>Main</app-toolbar>
-				<!-- MENU CON RUTAS INCLUIDAS -->
-				<div class="nav__bar">
-					<a class="link__nav" href="">All</a>
-					<a class="link__nav" href="">Alive</a>
-					<a class="link__nav" href="">Dead</a>
-					<a class="link__nav" href="">Unknown</a>
+		<sample-content size="100"></sample-content>
+
+		 <app-drawer id="drawer" align="right" swipe-open>
+		    <div class="drawer-contents">
+		    	<app-toolbar>Main</app-toolbar>
+		      	<div class="nav__bar">
+					<a class="link__nav" href="/list/all">All</a>
+					<a class="link__nav" href="/list/alive" >Alive</a>
+					<a class="link__nav" href="/list/dead">Dead</a>
+					<a class="link__nav" href="/list/unknow">Unknown</a>
 				</div>
-			</app-drawer>
-	    </app-drawer-layout>
+		    </div>
+		  </app-drawer>
 
-	    <iron-pages selected="[[data.page]]" attr-for-selected="view" fallback-selection="default">
-            <section view="home">home</section>
-        </iron-pages>
+		<iron-pages roole="main" selected="[[routeData.page]]" attr-for-selected="name" fallback-selection="list">
+			<rick-list status="[[routeData.page]]" name="list" on-element-clicked="test"></rick-list>
+			<rick-detail name="detail" data="[[selectedItem]]"></rick-detail>
+		</iron-pages>
 
 	</template>
 
@@ -97,23 +105,26 @@
 				static get is() { return 'rick-app'; }
 				static get properties() {
 					return {
-						// observers: [
-						// 	'_routeChanged(route.*)'
-						// ]
+
+						routeData: {
+							type: Object,
+							value: {
+								page: 'all'
+							}
+						},
+
+						selectedItem: Object
 					};
 				}
+			
+				test(event) {
+					this.selectedItem = event.detail.data;
+					console.log(event.detail.data);
+				}
 
-				ready() {
-	                super.ready();
-	                console.log(this.route);
-	                console.log(this.data);
-	            }
-
-	            // _routeChanged(changeRecord) {
-	            // 	if (changeRecord.path === 'path') {
-	            // 		console.log('Path changed!!');
-	            // 	}
-	            // }
+				openDrawer() {
+					this.$.drawer.toggle();
+				}
 
 			}
 
