@@ -41,49 +41,54 @@
 				display: none;
 			}
 
-			.nav__bar {
-				display: flex;
-				flex-direction: column;
-			}
-
+			app-toolbar {
+		        background-color: #4285f4;
+		        color: #fff;
+		    }
+		    
+		    app-drawer {
+		        --app-drawer-content-container: {
+		          background-color: #B0BEC5;
+		        }
+		    }
+		    .drawer-contents {
+		        height: 100%;
+		        overflow-y: auto;
+		    }
+		    .nav__bar {
+		    	display: flex;
+		    	flex-direction: column;
+		    	padding: 20px;  
+		    }
 			.link__nav {
+				padding: 15px;
 				text-decoration: none;
-				color: #000;
-				padding: 20px;
+				color: #eee;
 			}
 
-			.link__nav:hover {
-				background-color: #E87370;
-				color: #eee;
-				transition: .6s;
-				border-radius: 40px;
-			}
 		</style>
 
 		<app-location route="{{route}}"></app-location>
 		<app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
-		<app-drawer-layout>
-			<app-header-layout>
-				<app-header slot="header" reveals effects="wtaerfail">
-					<app-toolbar>
-						<paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-						<div class="title" main-title>Rick App</div>
-					</app-toolbar>
-				</app-header>
-			</app-header-layout>
+		<app-toolbar>
+		    <div main-title></div>
+		    <paper-icon-button icon="menu" on-click="openDrawer"></paper-icon-button>
+		</app-toolbar>
 
-			<app-drawer slot="drawer">
-				<app-toolbar>Main</app-toolbar>
-				<!-- MENU CON RUTAS INCLUIDAS -->
-				<div class="nav__bar">
+		<sample-content size="100"></sample-content>
+
+		 <app-drawer id="drawer" align="right" swipe-open>
+		    <div class="drawer-contents">
+		    	<app-toolbar>Main</app-toolbar>
+		      	<div class="nav__bar">
 					<a class="link__nav" href="/list/all">All</a>
 					<a class="link__nav" href="/list/alive">Alive</a>
 					<a class="link__nav" href="/list/dead">Dead</a>
 					<a class="link__nav" href="/list/unknow">Unknown</a>
 				</div>
-			</app-drawer>
-		</app-drawer-layout>
+		    </div>
+		  </app-drawer>
 
 		<iron-pages role="main" selected="[[routeData.page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="home">
 			<rick-home name="home"></rick-home>
@@ -113,6 +118,10 @@
 				test() {
 					console.log(this.routeData);
 					console.log(this.subroute);
+				}
+
+				openDrawer() {
+					this.$.drawer.toggle();
 				}
 
 			}
