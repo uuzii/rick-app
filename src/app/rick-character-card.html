@@ -7,32 +7,24 @@
                 padding: 1em;
             }
 
-            .cafe-header {
-                @apply --paper-font-headline;
-            }
-
-            .cafe-light {
+            .card-light-text {
                 color: var(--paper-grey-600);
             }
 
-            .cafe-location {
+            .card-icon {
                 float: right;
                 font-size: 15px;
                 vertical-align: middle;
             }
 
-            .cafe-reserve {
-                color: var(--google-blue-500);
+            paper-card {
+                z-index: -1;
             }
 
-            iron-icon.star {
-                --iron-icon-width: 16px;
-                --iron-icon-height: 16px;
-                color: var(--paper-amber-500);
-            }
-
-            iron-icon.star:last-of-type {
-                color: var(--paper-grey-500);
+            @media screen and (max-width: 600px) {
+                paper-card {
+                    width: 100%;
+                }
             }
         </style>
 
@@ -40,12 +32,12 @@
             <paper-card image="[[data.image]]">
                 <div class="card-content">
                     <div class="cafe-header">[[data.name]]
-                        <div class="cafe-location cafe-light">
+                        <div class="card-icon card-light-text">
                             <iron-icon icon="accessibility"></iron-icon>
                             <span>[[data.status]]</span>
                         </div>
                     </div>
-                    <p class="cafe-light">Small plates, salads &amp; sandwiches in an intimate setting.</p>
+                    <p class="card-light-text">[[data.species]]</p>
                 </div>
             </paper-card>
         </div>
