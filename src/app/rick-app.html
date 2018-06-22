@@ -28,6 +28,10 @@
 	<template>
 
 		<style>
+			:root {
+				--app-primary-color: #252525;
+			}
+			
 			paper-icon-button {
 				--paper-icon-button-ink-color: white;
 			}
@@ -37,7 +41,7 @@
 			}
 
 			app-toolbar {
-				background-color: #4285f4;
+				background-color: var(--app-primary-color);
 				color: #fff;
 			}
 
@@ -68,16 +72,22 @@
 				text-decoration: none;
 				color: #000000;
 			}
+
+			.logo__img {
+				width: 150px;
+			}
 		</style>
 
 		<app-location route="{{route}}" use-hash-as-path></app-location>
 		<app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
 		<app-toolbar>
-			<div main-title>Rick & Morty App</div>
+			<div main-title>
+				<img class="logo__img" src="../../assets/logo.png" alt="">
+			</div>
 			<paper-icon-button icon="menu" on-click="openDrawer"></paper-icon-button>
 		</app-toolbar>
-
+	
 		<sample-content size="100"></sample-content>
 
 		<app-drawer id="drawer" align="right" swipe-open>
