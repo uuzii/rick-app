@@ -39,13 +39,15 @@
 
             .profile--content {
                 background: #11103D;
-                text-align: justify;
-                padding: 10px;
             }
 
             .title__principal {
                 background: lightgray;
                 text-align: center;
+            }
+
+            .list__ul {
+                list-style: none;
             }
 
             @media screen and (max-width: 600px) {
@@ -62,7 +64,7 @@
                     word-wrap: break-word;
                 }
                 .details__photo-card img{
-                    width: 99%;
+                    width: 100%;
                 }
                 .details__photo-card ul {
                     width: 80%;
@@ -104,7 +106,7 @@
                     <p class="episodios:">
                         <b>Episodios:</b>
                     </p>
-                    <ul>
+                    <ul class="list__ul">
                         <template is="dom-repeat" items="{{data.episode}}">
                             <li>[[item]]</li>
                         </template>
